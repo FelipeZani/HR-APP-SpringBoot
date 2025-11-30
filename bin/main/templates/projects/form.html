@@ -1,0 +1,24 @@
+<div layout:fragment="content">
+    <h1 th:text="${project.id == null ? 'Créer un Projet' : 'Modifier le Projet: ' + project.label}"></h1>
+
+    <form th:action="@{/projects/save}" th:object="${project}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="mb-3">
+            <label for="label" class="form-label">Nom du Projet</label>
+            <input type="text" th:field="*{label}" class="form-control" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Statut (Initial)</label>
+            <select th:field="*{status}" class="form-select" required>
+                <option value="TODO">À Faire</option>
+                <option value="IN_PROGRESS">En Cours</option>
+                <option value="COMPLETED">Terminé</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a th:href="@{/projects}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>

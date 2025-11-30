@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - HR App</title>
+    <style>
+        body {
+            font-family: system-ui;
+            margin: 0;
+            background: #f6f6f6;
+            padding: 2rem;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            background: #2563eb;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background: #1e4fc9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Bienvenue, <span th:text="${user.username}">Utilisateur</span></h1>
+
+    <p>Bienvenue sur votre tableau de bord RH.</p>
+
+    <a href="/employee" class="btn">Gérer les employés</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        Gestion RH
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Gérer les Départements</h5>
+        <p class="card-text">Liste des départements et affectation des employés.</p>
+        <a th:href="@{/departements}" class="btn btn-primary">
+            <i class="fas fa-sitemap"></i> Gérer les Départements
+        </a>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        Gestion des Projets
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Créer, Modifier et Suivre les Projets</h5>
+        <p class="card-text">Gérez les projets et affectez les employés.</p>
+        <a th:href="@{/projects}" class="btn btn-warning">
+            <i class="fas fa-tasks"></i> Gérer les Projets
+        </a>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        Gestion des Salaires
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Fiches de Paie et Rémunérations</h5>
+        <p class="card-text">Créer, consulter et gérer les fiches de paie.</p>
+        <a th:href="@{/paystubs}" class="btn btn-success">
+            <i class="fas fa-file-invoice-dollar"></i> Gérer les Fiches de Paie
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

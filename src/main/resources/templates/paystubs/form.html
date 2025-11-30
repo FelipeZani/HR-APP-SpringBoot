@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+<head>
+    <title>Créer une Fiche de Paie</title>
+            <link rel="stylesheet" 
+          type="text/css" 
+          th:href="@{/css/styleFP.css}">
+</head>
+<div layout:fragment="content">
+    <h1>Créer une Fiche de Paie</h1>
+
+    <form th:action="@{/paystubs/create}" th:object="${paystub}" method="post">
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="employeeId" class="form-label">Employé concerné</label>
+                <select th:field="*{employeeId}" class="form-select" required>
+                    <option value="">-- Choisir un employé --</option>
+                    <option th:each="emp : ${employees}" 
+                            th:value="${emp.id}" 
+                            th:text="${emp.firstName + ' ' + emp.lastName + ' (' + emp.matricule + ')'}">
+                        Nom Prénom
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="payPeriod" class="form-label">Mois de la Paie</label>
+                <input type="month" th:field="*{payPeriod}" class="form-control" required/>
+            </div>
+        </div>
+
+        <div class="row mb-3 border p-3 rounded">
+            <h3>Composantes de la Paie</h3>
+            <div class="col-md-4">
+                <label for="baseSalary" class="form-label">Salaire de Base (€)</label>
+                <input type="number" step="0.01" th:field="*{baseSalary}" class="form-control" required/>
+            </div>
+            <div class="col-md-4">
+                <label for="bonuses" class="form-label">Primes (+)</label>
+                <input type="number" step="0.01" th:field="*{bonuses}" class="form-control" value="0.00"/>
+            </div>
+            <div class="col-md-4">
+                <label for="deductions" class="form-label">Déductions (-)</label>
+                <input type="number" step="0.01" th:field="*{deductions}" class="form-control" value="0.00"/>
+            </div>
+            <p class="text-muted mt-2">Le net à payer sera calculé automatiquement : **Base + Primes - Déductions**.</p>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-calculator"></i> Créer et Calculer
+        </button>
+        <a th:href="@{/paystubs}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+</html>

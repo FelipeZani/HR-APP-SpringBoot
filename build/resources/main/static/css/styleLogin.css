@@ -1,0 +1,471 @@
+/* ==========================================
+   LOGIN PAGE - Design Épuré et Riche
+   Thème Blanc-Vert Premium
+   ========================================== */
+
+:root {
+    --vert-principal: #10b981;
+    --vert-hover: #059669;
+    --vert-clair: #d1fae5;
+    --vert-pale: #f0fdf4;
+    --blanc: #ffffff;
+    --gris-clair: #f9fafb;
+    --gris-moyen: #e5e7eb;
+    --gris-texte: #6b7280;
+    --gris-fonce: #374151;
+    --rouge: #ef4444;
+    --ombre-douce: 0 10px 40px rgba(16, 185, 129, 0.12);
+    --ombre-forte: 0 20px 60px rgba(16, 185, 129, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   Body et Fond Animé
+   ========================================== */
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 50%, #a7f3d0 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+/* Formes géométriques animées en arrière-plan */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.15), transparent);
+    animation: float 20s ease-in-out infinite;
+}
+
+body::before {
+    width: 500px;
+    height: 500px;
+    top: -250px;
+    left: -250px;
+    animation-delay: 0s;
+}
+
+body::after {
+    width: 400px;
+    height: 400px;
+    bottom: -200px;
+    right: -200px;
+    animation-delay: 10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -50px) scale(1.1); }
+    50% { transform: translate(-30px, 30px) scale(0.9); }
+    75% { transform: translate(40px, 40px) scale(1.05); }
+}
+
+/* ==========================================
+   Container Principal de Connexion
+   ========================================== */
+
+.login-container {
+    background: var(--blanc);
+    border-radius: 24px;
+    box-shadow: var(--ombre-douce);
+    width: 100%;
+    max-width: 440px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    z-index: 10;
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-container:hover {
+    box-shadow: var(--ombre-forte);
+    transform: translateY(-2px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Barre décorative supérieure */
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--vert-principal), var(--vert-hover));
+    border-radius: 0 0 10px 10px;
+}
+
+/* ==========================================
+   En-tête (Titre en haut)
+   ========================================== */
+
+h1 {
+    font-size: 2rem;
+    color: var(--gris-fonce);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--gris-fonce), var(--vert-principal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    color: var(--gris-texte);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+/* ==========================================
+   Formulaire
+   ========================================== */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gris-fonce);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Input avec animations et icônes */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 3rem;
+    font-size: 1rem;
+    border: 2px solid var(--gris-moyen);
+    border-radius: 12px;
+    background: var(--gris-clair);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--gris-fonce);
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--vert-principal);
+    background: var(--blanc);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    transform: translateY(-2px);
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: var(--gris-texte);
+    opacity: 0.6;
+}
+
+/* Icônes dans les inputs */
+.form-group::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    bottom: 0.875rem;
+    font-size: 1.2rem;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.form-group:has(#username)::after {
+    content: '👤';
+}
+
+.form-group:has(#password)::after {
+    content: '🔒';
+}
+
+.form-group:focus-within::after {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.form-group:focus-within label {
+    color: var(--vert-principal);
+}
+
+/* ==========================================
+   Bouton de Connexion
+   ========================================== */
+
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--blanc);
+    background: linear-gradient(135deg, var(--vert-principal) 0%, var(--vert-hover) 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+button[type="submit"]:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+button[type="submit"]:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* ==========================================
+   Messages d'Erreur et Succès
+   ========================================== */
+
+.alert {
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    animation: slideDown 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert::before {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.alert-error {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.alert-error::before {
+    content: '⚠️';
+}
+
+.alert-success {
+    background: linear-gradient(135deg, var(--vert-pale) 0%, var(--vert-clair) 100%);
+    color: #065f46;
+    border: 1px solid var(--vert-clair);
+}
+
+.alert-success::before {
+    content: '✓';
+    background: var(--vert-principal);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ==========================================
+   Pied de Page
+   ========================================== */
+
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gris-moyen);
+}
+
+.login-footer p {
+    color: var(--gris-texte);
+    font-size: 0.875rem;
+}
+
+/* ==========================================
+   Options Supplémentaires (si ajoutées)
+   ========================================== */
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gris-texte);
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--vert-principal);
+}
+
+.forgot-password {
+    color: var(--vert-principal);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--vert-hover);
+    text-decoration: underline;
+}
+
+/* ==========================================
+   Loading State
+   ========================================== */
+
+button[type="submit"].loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+button[type="submit"].loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+
+@media (max-width: 500px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 0.75rem 0.875rem 0.75rem 2.75rem;
+    }
+
+    .form-group::after {
+        bottom: 0.75rem;
+    }
+
+    .options {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+/* ==========================================
+   Mode Sombre (bonus si implémenté)
+   ========================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --blanc: #1f2937;
+        --gris-clair: #111827;
+        --gris-fonce: #f9fafb;
+        --gris-texte: #d1d5db;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #374151 100%);
+    }
+    
+    .login-container {
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+}

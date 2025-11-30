@@ -1,0 +1,74 @@
+<div layout:fragment="content">
+    <h1 th:text="'Projet : ' + ${project.label}"></h1>
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Statut et Avancement</h2>
+            <p><strong>ID :</strong> <span th:text="${project.id}"></span></p>
+            <p><strong>Statut actuel :</strong> 
+                <span class="badge fs-5" 
+                      th:classappend="${project.status == 'COMPLETED' ? 'bg-success' : (project.status == 'IN_PROGRESS' ? 'bg-warning text-dark' : 'bg-secondary')}"
+                      th:text="${project.status}"></span>
+            </p>
+
+            <h3 class="mt-4">Modifier le Statut</h3>
+            <form th:action="@{/projects/save}" th:object="${project}" method="post" class="row g-3">
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{label}" />
+                
+                <div class="col-8">
+                    <select th:field="*{status}" class="form-select">
+                        <option th:each="status : ${statuses}" 
+                                th:value="${status}" 
+                                th:text="${status}">Statut</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-sm btn-primary w-100">Mettre à jour</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Employés Affectés (<span th:text="${project.employees.size()}"></span>)</h2>
+            <ul class="list-group mb-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    th:each="employee : ${project.employees}">
+                    
+                    <span th:text="${employee.firstName + ' ' + employee.lastName + ' (' + employee.matricule + ')'}"></span>
+                    
+                    <form th:action="@{/projects/{id}/unassign(id=${project.id})}" method="post" class="d-inline">
+                        <input type="hidden" name="employeeId" th:value="${employee.id}" />
+                        <button type="submit" class="btn btn-sm btn-danger">Désaffecter</button>
+                    </form>
+                </li>
+            </ul>
+
+            <h3 class="mt-4">Affecter un Employé</h3>
+            <form th:action="@{/projects/{id}/assign(id=${project.id})}" method="post" class="row g-3">
+                <div class="col-8">
+                    <select name="employeeId" class="form-select" required 
+                            th:disabled="${employeesNotInProject.isEmpty()}">
+                        <option value="">-- Sélectionner un employé --</option>
+                        <option th:each="emp : ${employeesNotInProject}" 
+                                th:value="${emp.id}"
+                                th:text="${emp.firstName + ' ' + emp.lastName + ' (' + emp.matricule + ')'}">
+                            Nom Prénom (Matricule)
+                        </option>
+                    </select>
+                    <div th:if="${employeesNotInProject.isEmpty()}" class="text-warning mt-2">
+                        Tous les employés sont déjà dans ce projet ou dans un autre projet.
+                    </div>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-success w-100" th:disabled="${employeesNotInProject.isEmpty()}">Affecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a th:href="@{/projects}" class="btn btn-secondary">Retour à la liste des Projets</a>
+    </div>
+</div>
