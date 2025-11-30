@@ -1,0 +1,241 @@
+:root {
+    --vert-principal: #10b981;
+    --vert-hover: #059669;
+    --vert-clair: #d1fae5;
+    --vert-pale: #f0fdf4;
+    --blanc: #ffffff;
+    --gris-clair: #f9fafb;
+    --gris-moyen: #e5e7eb;
+    --gris-texte: #6b7280;
+    --gris-fonce: #374151;
+    --bleu: #3b82f6;
+    --rouge: #ef4444;
+    --ombre-legere: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --ombre-moyenne: 0 4px 12px rgba(16, 185, 129, 0.15);
+    --ombre-forte: 0 10px 25px rgba(16, 185, 129, 0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: system-ui;
+    background: linear-gradient(135deg, var(--gris-clair), var(--vert-pale));
+    color: var(--gris-fonce);
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    background: var(--blanc);
+    box-shadow: var(--ombre-legere);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid var(--vert-clair);
+}
+
+header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gris-fonce), var(--vert-principal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* MAIN */
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 2rem;
+}
+
+/* CARD */
+.card {
+    background: var(--blanc);
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: var(--ombre-legere);
+    border: 1px solid var(--gris-moyen);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--ombre-moyenne);
+    border-color: var(--vert-clair);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gris-fonce);
+    border-bottom: 3px solid var(--vert-principal);
+    display: inline-block;
+    padding-bottom: .4rem;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanc);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--ombre-legere);
+}
+
+thead {
+    background: linear-gradient(135deg, var(--vert-pale), var(--vert-clair));
+}
+
+thead th {
+    padding: .9rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--vert-hover);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--gris-moyen);
+    transition: var(--transition);
+}
+
+/* ✔️ OPTION 2 — ALIGNEMENT PARFAIT : 
+   → plus de pseudo-élément ::before qui décalait les lignes
+   → utilisation d’un vrai border-left propre au survol */
+tbody tr:hover {
+    background: var(--vert-pale);
+    border-left: 4px solid var(--vert-principal);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+}
+
+/* cellule */
+tbody td {
+    padding: .8rem 1rem;
+    color: var(--gris-fonce);
+}
+
+/* colonne Actions */
+td:last-child {
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* FORM */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+label {
+    font-weight: 600;
+}
+
+input {
+    border: 2px solid var(--gris-moyen);
+    border-radius: 10px;
+    padding: .8rem .9rem;
+    font-size: 1rem;
+    background: var(--gris-clair);
+    transition: var(--transition);
+}
+
+input:focus {
+    border-color: var(--vert-principal);
+    background: var(--blanc);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+/* BUTTONS */
+.btn {
+    padding: .65rem 1.3rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--vert-principal), var(--vert-hover));
+    color: var(--blanc);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--gris-texte), var(--gris-fonce));
+    color: var(--blanc);
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, var(--bleu), #2563eb);
+    color: var(--blanc);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, var(--rouge), #dc2626);
+    color: var(--blanc);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    table,
+    thead,
+   tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        margin-bottom: .9rem;
+        border-radius: 10px;
+        box-shadow: var(--ombre-legere);
+        border-left: none; /* évite le bug visuel en mobile */
+    }
+
+    tbody td {
+        padding: .55rem .9rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    tbody td:nth-child(1)::before { content: "ID"; }
+    tbody td:nth-child(2)::before { content: "Prénom"; }
+    tbody td:nth-child(3)::before { content: "Nom"; }
+    tbody td:nth-child(4)::before { content: "Email"; }
+    tbody td:nth-child(5)::before { content: "Matricule"; }
+    tbody td:nth-child(6)::before { content: "Département"; }
+    tbody td:nth-child(7)::before { content: "Actions"; }
+}
