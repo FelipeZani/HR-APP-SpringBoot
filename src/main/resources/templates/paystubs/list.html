@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"> 
+<head>
+    <title>Liste des Fiches de Paie</title>
+            <link rel="stylesheet" 
+          type="text/css" 
+          th:href="@{/css/styleFP.css}">
+</head>
+<div layout:fragment="content">
+    <h1>Gestion des Fiches de Paie</h1>
+
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${infoMessage}" class="alert alert-info" th:text="${infoMessage}"></div>
+
+    <div class="card mb-4">
+        <div class="card-header">Recherche Avancée</div>
+        <div class="card-body">
+            <form th:action="@{/paystubs}" method="get" class="row g-3 align-items-end">
+                
+                <div class="col-md-4">
+                    <label for="employeeId" class="form-label">Employé</label>
+                    <select name="employeeId" id="employeeId" class="form-select">
+                        <option value="">-- Tous les employés --</option>
+                        <option th:each="emp : ${employees}" 
+                                th:value="${emp.id}" 
+                                th:text="${emp.firstName + ' ' + emp.lastName + ' (' + emp.matricule + ')'}"
+                                th:selected="${emp.id == employeeId}">
+                            Nom Prénom
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="col-md-3">
+                    <label for="startDate" class="form-label">Période du</label>
+                    <input type="month" name="startDate" id="startDate" class="form-control" 
+                           th:value="${#dates.format(startDate, 'yyyy-MM')}" />
+                </div>
+                
+                <div class="col-md-3">
+                    <label for="endDate" class="form-label">Au</label>
+                    <input type="month" name="endDate" id="endDate" class="form-control" 
+                           th:value="${#dates.format(endDate, 'yyyy-MM')}" />
+                </div>
+                
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search"></i> Rechercher
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <a th:href="@{/paystubs/new}" class="btn btn-success mb-3">
+        <i class="fas fa-plus"></i> Créer une nouvelle fiche de paie
+    </a>
+
+<table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employé</th> <th>Période</th>
+                <th>Salaire de Base</th>
+                <th>Net à Payer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="stub : ${paystubs}">
+                <td th:text="${stub.id}">1</td>
+                <td th:with="emp=${employeeMap.get(stub.employeeId)}">
+                    <span th:text="${emp.firstName + ' ' + emp.lastName}">Nom Prénom</span>
+                </td>
+                <td th:text="${#dates.format(stub.payPeriod, 'MMMM yyyy')}">Juin 2025</td>
+                <td th:text="${#numbers.formatCurrency(stub.baseSalary)}">1 400,00 €</td>
+                <td th:text="${#numbers.formatCurrency(stub.netTotal)}">1 100,00 €</td>
+                <td>
+                    <a th:href="@{/paystubs/{id}(id=${stub.id})}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i> Consulter
+                    </a>
+                    <a th:href="@{/paystubs/print/{id}(id=${stub.id})}" class="btn btn-sm btn-secondary">
+                        <i class="fas fa-print"></i> PDF
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+</html>

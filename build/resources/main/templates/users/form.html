@@ -1,0 +1,38 @@
+<head>
+            <link rel="stylesheet" 
+          type="text/css" 
+          th:href="@{/css/styleU.css}">
+</head>
+
+<div layout:fragment="content">
+    
+    <h1>Créer un Nouveau Compte RH/DRH</h1>
+
+    <form th:action="@{/users/register}" th:object="${userCreationForm}" method="post">
+        
+        <div class="mb-3">
+            <label for="username" class="form-label">Nom d'Utilisateur (Login)</label>
+            <input type="text" th:field="*{username}" class="form-control" required/>
+        </div>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Email de l'Utilisateur (pour envoi des identifiants)</label>
+            <input type="email" th:field="*{email}" class="form-control" required/>
+        </div>
+        
+        <div class="mb-3">
+            <label for="role" class="form-label">Rôle</label>
+            <select th:field="*{role}" class="form-select" required>
+                <option value="">-- Sélectionner un rôle --</option>
+                <option th:each="role : ${availableRoles}" 
+                        th:value="${role}" 
+                        th:text="${role}">Rôle</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Créer le Compte et Envoyer le Mot de Passe
+        </button>
+        <a th:href="@{/users/admin}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>

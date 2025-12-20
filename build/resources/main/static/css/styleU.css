@@ -1,0 +1,619 @@
+/* ==========================================
+   GESTION UTILISATEURS - Thème Blanc-Vert Épuré
+   ========================================== */
+
+:root {
+    --vert-principal: #10b981;
+    --vert-hover: #059669;
+    --vert-clair: #d1fae5;
+    --vert-pale: #f0fdf4;
+    --blanc: #ffffff;
+    --gris-clair: #f9fafb;
+    --gris-moyen: #e5e7eb;
+    --gris-texte: #6b7280;
+    --gris-fonce: #374151;
+    --bleu: #3b82f6;
+    --rouge: #ef4444;
+    --ombre-legere: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --ombre-moyenne: 0 4px 12px rgba(16, 185, 129, 0.15);
+    --ombre-forte: 0 10px 25px rgba(16, 185, 129, 0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   En-têtes
+   ========================================== */
+
+h1 {
+    font-size: 2rem;
+    color: var(--gris-fonce);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--vert-principal);
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gris-fonce), var(--vert-principal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInLeft 0.6s ease;
+}
+
+.display-5 {
+    font-size: 2.25rem;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==========================================
+   Alertes
+   ========================================== */
+
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-left: 4px solid;
+    animation: slideDown 0.4s ease;
+    font-weight: 500;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert::before {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, var(--vert-pale), var(--vert-clair));
+    color: #065f46;
+    border-left-color: var(--vert-principal);
+}
+
+.alert-success::before {
+    content: '✓';
+    background: var(--vert-principal);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Attribut role="alert" */
+[role="alert"] {
+    box-shadow: var(--ombre-legere);
+}
+
+/* ==========================================
+   Tables
+   ========================================== */
+
+.table {
+    width: 100%;
+    background: var(--blanc);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--ombre-legere);
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--vert-pale), var(--vert-clair));
+}
+
+.table thead tr th {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--vert-hover);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--vert-clair);
+}
+
+.table tbody tr {
+    transition: var(--transition);
+    border-bottom: 1px solid var(--gris-moyen);
+    position: relative;
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: var(--vert-pale);
+    transform: scale(1.01);
+}
+
+.table tbody tr td {
+    padding: 1rem 1.5rem;
+    color: var(--gris-fonce);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.table tbody tr td:first-child {
+    font-weight: 600;
+}
+
+/* Table striped */
+.table-striped tbody tr:nth-child(odd) {
+    background: var(--gris-clair);
+}
+
+.table-striped tbody tr:nth-child(odd):hover {
+    background: var(--vert-pale);
+}
+
+/* Table hover */
+.table-hover tbody tr::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--vert-principal), var(--vert-hover));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: center;
+}
+
+.table-hover tbody tr:hover::before {
+    transform: scaleY(1);
+}
+
+/* Animation des lignes */
+.table tbody tr {
+    animation: fadeInRow 0.4s ease forwards;
+    opacity: 0;
+}
+
+.table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+.table tbody tr:nth-child(2) { animation-delay: 0.1s; }
+.table tbody tr:nth-child(3) { animation-delay: 0.15s; }
+.table tbody tr:nth-child(4) { animation-delay: 0.2s; }
+.table tbody tr:nth-child(5) { animation-delay: 0.25s; }
+.table tbody tr:nth-child(6) { animation-delay: 0.3s; }
+.table tbody tr:nth-child(7) { animation-delay: 0.35s; }
+.table tbody tr:nth-child(8) { animation-delay: 0.4s; }
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==========================================
+   Formulaires
+   ========================================== */
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gris-fonce);
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--gris-moyen);
+    border-radius: 10px;
+    background: var(--gris-clair);
+    color: var(--gris-fonce);
+    transition: var(--transition);
+    outline: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--vert-principal);
+    background: var(--blanc);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    transform: translateY(-2px);
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+}
+
+/* Input type email avec icône */
+input[type="email"] {
+    padding-left: 2.75rem;
+    background-color: var(--gris-clair);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 0.875rem center;
+    background-size: 20px 20px;
+}
+
+input[type="email"]:focus {
+    background-color: var(--blanc);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 0.875rem center;
+    background-size: 20px 20px;
+}
+
+/* Input type text (username) avec icône */
+input[type="text"][id="username"],
+input[type="text"][th\:field*="username"] {
+    padding-left: 2.75rem;
+    background-color: var(--gris-clair);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 0.875rem center;
+    background-size: 20px 20px;
+}
+
+input[type="text"][id="username"]:focus,
+input[type="text"][th\:field*="username"]:focus {
+    background-color: var(--blanc);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 0.875rem center;
+    background-size: 20px 20px;
+}
+
+/* ==========================================
+   Boutons
+   ========================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Variantes de boutons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--bleu), #2563eb);
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--gris-texte), var(--gris-fonce));
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(107, 114, 128, 0.25);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.35);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--rouge), #dc2626);
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+}
+
+/* Tailles de boutons */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Icônes Font Awesome */
+.fas {
+    opacity: 0.9;
+    transition: var(--transition);
+}
+
+.btn:hover .fas {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   Marges utilitaires
+   ========================================== */
+
+.mt-3 {
+    margin-top: 1.5rem;
+}
+
+/* ==========================================
+   Formulaires inline (pour suppression)
+   ========================================== */
+
+form[style*="inline"],
+.d-inline form {
+    display: inline-block;
+    margin: 0;
+}
+
+/* ==========================================
+   Sections de sécurité (sec:authorize)
+   ========================================== */
+
+div[sec\:authorize] {
+    display: inline-block;
+}
+
+/* Message "Pas d'action disponible" */
+td div:not(:has(form)):not(:has(.btn)) {
+    color: var(--gris-texte);
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+}
+
+/* ==========================================
+   Container de formulaire
+   ========================================== */
+
+form {
+    background: var(--blanc);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--ombre-legere);
+    border: 1px solid var(--gris-moyen);
+    transition: var(--transition);
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeIn 0.6s ease;
+}
+
+form:hover {
+    box-shadow: var(--ombre-moyenne);
+    border-color: var(--vert-clair);
+}
+
+/* Formulaire de suppression inline : pas de style */
+form[style*="inline"] {
+    background: none;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    max-width: none;
+    margin: 0;
+}
+
+/* ==========================================
+   Boutons groupés
+   ========================================== */
+
+form .btn {
+    margin-right: 0.75rem;
+}
+
+form .btn:last-child {
+    margin-right: 0;
+}
+
+/* ==========================================
+   Badge de rôle (optionnel)
+   ========================================== */
+
+td[th\:text*="role"] {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+
+@media (max-width: 768px) {
+    h1,
+    .display-5 {
+        font-size: 1.5rem;
+    }
+
+    .table {
+        font-size: 0.875rem;
+    }
+
+    .table thead tr th,
+    .table tbody tr td {
+        padding: 0.75rem 1rem;
+    }
+
+    /* Boutons en colonne sur mobile */
+    td {
+        display: block;
+    }
+
+    td form {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    td .btn {
+        width: 100%;
+    }
+
+    /* Formulaire de création */
+    form {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        margin-right: 0 !important;
+    }
+
+    /* Actions dans les tables */
+    .table td:last-child div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .table td:last-child form {
+        display: block !important;
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   Animation de confirmation
+   ========================================== */
+
+.btn-danger:active {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ==========================================
+   État de chargement
+   ========================================== */
+
+form.loading {
+    pointer-events: none;
+    opacity: 0.6;
+    position: relative;
+}
+
+form.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid var(--gris-moyen);
+    border-top-color: var(--vert-principal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   Amélioration visuelle du texte N/A
+   ========================================== */
+
+td[th\:text*="N/A"] {
+    color: var(--gris-texte);
+    font-style: italic;
+}
+
+/* ==========================================
+   Focus visible pour accessibilité
+   ========================================== */
+
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--vert-principal);
+    outline-offset: 2px;
+}

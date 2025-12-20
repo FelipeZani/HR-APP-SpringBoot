@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+<head>
+    <title th:text="'Employés de ' + ${departementName}"></title>
+        <link rel="stylesheet" 
+          type="text/css" 
+          th:href="@{/css/styleD.css}">
+</head>
+<div layout:fragment="content">
+    <h1 th:text="'Employés du Département : ' + ${departementName}"></h1>
+
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <h2>Employés Actuels (<span th:text="${employees.size()}">0</span>)</h2>
+    <div th:if="${employees.isEmpty()}" class="alert alert-info">
+        Ce département n'a aucun employé affecté.
+    </div>
+    
+    <table th:unless="${employees.isEmpty()}" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Matricule</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.firstName}"></td>
+                <td th:text="${employee.lastName}"></td>
+                <td th:text="${employee.matricule}"></td>
+                <td>
+                    <form th:action="@{/departements/{name}/unassign(name=${departementName})}" method="post">
+                        <input type="hidden" name="employeeId" th:value="${employee.id}" />
+                        <button type="submit" class="btn btn-sm btn-danger">Désaffecter</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr/>
+
+    <h2>Affecter un Nouvel Employé</h2>
+    <div th:if="${employeesToAssign.isEmpty()}" class="alert alert-warning">
+        Tous les employés restants sont déjà affectés à ce département ou à un autre.
+    </div>
+
+    <form th:unless="${employeesToAssign.isEmpty()}" th:action="@{/departements/{name}/assign(name=${departementName})}" method="post" class="row g-3">
+        <div class="col-md-8">
+            <select name="employeeId" class="form-select" required>
+                <option value="">-- Sélectionnez un employé à affecter --</option>
+                <option th:each="emp : ${employeesToAssign}" 
+                        th:value="${emp.id}"
+                        th:text="${emp.firstName + ' ' + emp.lastName + ' (Département actuel: ' + (emp.departement != null ? emp.departement : 'Aucun') + ')'}">
+                    Nom Prénom (Département Actuel)
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-success w-100">
+                <i class="fas fa-plus-circle"></i> Affecter
+            </button>
+        </div>
+    </form>
+
+    <div class="mt-4">
+        <a th:href="@{/departements}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste des Départements
+        </a>
+    </div>
+
+</div>
+</html>

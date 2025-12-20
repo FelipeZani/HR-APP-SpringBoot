@@ -1,0 +1,724 @@
+/* ==========================================
+   PROJETS - Thème Blanc-Vert Épuré
+   ========================================== */
+
+:root {
+    --vert-principal: #10b981;
+    --vert-hover: #059669;
+    --vert-clair: #d1fae5;
+    --vert-pale: #f0fdf4;
+    --blanc: #ffffff;
+    --gris-clair: #f9fafb;
+    --gris-moyen: #e5e7eb;
+    --gris-texte: #6b7280;
+    --gris-fonce: #374151;
+    --bleu: #3b82f6;
+    --orange: #f59e0b;
+    --rouge: #ef4444;
+    --jaune: #fbbf24;
+    --ombre-legere: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --ombre-moyenne: 0 4px 12px rgba(16, 185, 129, 0.15);
+    --ombre-forte: 0 10px 25px rgba(16, 185, 129, 0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   En-têtes
+   ========================================== */
+
+h1 {
+    font-size: 2rem;
+    color: var(--gris-fonce);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--vert-principal);
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gris-fonce), var(--vert-principal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInLeft 0.6s ease;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: var(--gris-fonce);
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+h2::before {
+    content: '';
+    width: 4px;
+    height: 1.5rem;
+    background: linear-gradient(180deg, var(--vert-principal), var(--vert-hover));
+    border-radius: 2px;
+}
+
+h2 span {
+    color: var(--vert-principal);
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 1.25rem;
+    color: var(--gris-fonce);
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==========================================
+   Grille Layout
+   ========================================== */
+
+.row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.g-3 {
+    gap: 1rem;
+}
+
+.col-md-6 {
+    flex: 1;
+    min-width: 0;
+}
+
+.col-8 {
+    flex: 1;
+}
+
+.col-4 {
+    flex: 0 0 auto;
+    min-width: 120px;
+}
+
+/* ==========================================
+   Badges de Statut
+   ========================================== */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: var(--ombre-legere);
+}
+
+.badge.fs-5 {
+    font-size: 1rem;
+    padding: 0.625rem 1.25rem;
+}
+
+.badge.bg-success {
+    background: linear-gradient(135deg, var(--vert-principal), var(--vert-hover));
+    color: var(--blanc);
+}
+
+.badge.bg-warning {
+    background: linear-gradient(135deg, var(--orange), #d97706);
+    color: var(--blanc);
+}
+
+.badge.bg-warning.text-dark {
+    color: #78350f !important;
+}
+
+.badge.bg-secondary {
+    background: linear-gradient(135deg, var(--gris-texte), var(--gris-fonce));
+    color: var(--blanc);
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    box-shadow: var(--ombre-moyenne);
+}
+
+/* ==========================================
+   Alertes
+   ========================================== */
+
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-left: 4px solid;
+    animation: slideDown 0.4s ease;
+    font-weight: 500;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert::before {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, var(--vert-pale), var(--vert-clair));
+    color: #065f46;
+    border-left-color: var(--vert-principal);
+}
+
+.alert-success::before {
+    content: '✓';
+    background: var(--vert-principal);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ==========================================
+   Tables
+   ========================================== */
+
+.table {
+    width: 100%;
+    background: var(--blanc);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--ombre-legere);
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--vert-pale), var(--vert-clair));
+}
+
+.table thead tr th {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--vert-hover);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--vert-clair);
+}
+
+.table tbody tr {
+    transition: var(--transition);
+    border-bottom: 1px solid var(--gris-moyen);
+    position: relative;
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: var(--vert-pale);
+    transform: scale(1.01);
+}
+
+.table tbody tr td {
+    padding: 1rem 1.5rem;
+    color: var(--gris-fonce);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.table tbody tr td:first-child {
+    font-weight: 600;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background: var(--gris-clair);
+}
+
+.table-striped tbody tr:nth-child(odd):hover {
+    background: var(--vert-pale);
+}
+
+/* ==========================================
+   Listes
+   ========================================== */
+
+.list-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.list-group-item {
+    background: var(--blanc);
+    border: 2px solid var(--gris-moyen);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: var(--transition);
+    box-shadow: var(--ombre-legere);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.4s ease forwards;
+    opacity: 0;
+}
+
+.list-group-item:nth-child(1) { animation-delay: 0.05s; }
+.list-group-item:nth-child(2) { animation-delay: 0.1s; }
+.list-group-item:nth-child(3) { animation-delay: 0.15s; }
+.list-group-item:nth-child(4) { animation-delay: 0.2s; }
+.list-group-item:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.list-group-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(180deg, var(--vert-principal), var(--vert-hover));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: bottom;
+}
+
+.list-group-item:hover {
+    transform: translateX(8px);
+    border-color: var(--vert-clair);
+    box-shadow: var(--ombre-moyenne);
+}
+
+.list-group-item:hover::before {
+    transform: scaleY(1);
+}
+
+.list-group-item span {
+    font-weight: 500;
+    color: var(--gris-fonce);
+}
+
+/* ==========================================
+   Formulaires
+   ========================================== */
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gris-fonce);
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--gris-moyen);
+    border-radius: 10px;
+    background: var(--gris-clair);
+    color: var(--gris-fonce);
+    transition: var(--transition);
+    outline: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--vert-principal);
+    background: var(--blanc);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+}
+
+.form-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--gris-moyen);
+}
+
+/* Texte d'avertissement */
+.text-warning {
+    color: var(--orange);
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.text-warning::before {
+    content: '⚠️';
+}
+
+/* ==========================================
+   Boutons
+   ========================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Variantes de boutons */
+.btn-success {
+    background: linear-gradient(135deg, var(--vert-principal), var(--vert-hover));
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.btn-success:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--bleu), #2563eb);
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(6, 182, 212, 0.25);
+}
+
+.btn-info:hover {
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--rouge), #dc2626);
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--gris-texte), var(--gris-fonce));
+    color: var(--blanc);
+    box-shadow: 0 4px 10px rgba(107, 114, 128, 0.25);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.35);
+}
+
+/* Tailles de boutons */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* Icônes Font Awesome */
+.fas {
+    opacity: 0.9;
+    transition: var(--transition);
+}
+
+.btn:hover .fas {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Bouton inline dans formulaire */
+.d-inline {
+    display: inline;
+}
+
+/* ==========================================
+   Sections de contenu
+   ========================================== */
+
+.col-md-6 {
+    background: var(--blanc);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--ombre-legere);
+    transition: var(--transition);
+    border: 1px solid var(--gris-moyen);
+}
+
+.col-md-6:hover {
+    box-shadow: var(--ombre-moyenne);
+    border-color: var(--vert-clair);
+}
+
+/* ==========================================
+   Paragraphes et textes
+   ========================================== */
+
+p {
+    color: var(--gris-texte);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+p strong {
+    color: var(--gris-fonce);
+    font-weight: 600;
+}
+
+/* ==========================================
+   Marges utilitaires
+   ========================================== */
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gris-moyen);
+}
+
+/* ==========================================
+   Cards de statut (Page détails)
+   ========================================== */
+
+.col-md-6 h2:first-child {
+    margin-top: 0;
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+
+@media (max-width: 992px) {
+    .row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .col-md-6 {
+        width: 100%;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    .table {
+        font-size: 0.875rem;
+    }
+
+    .table thead tr th,
+    .table tbody tr td {
+        padding: 0.75rem 1rem;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .list-group-item {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .list-group-item form {
+        width: 100%;
+    }
+
+    .list-group-item form .btn {
+        width: 100%;
+    }
+
+    .g-3 {
+        flex-direction: column;
+    }
+
+    .col-8,
+    .col-4 {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    /* Garder les boutons d'action inline sur mobile */
+    .table td form {
+        display: inline-block;
+        margin: 0.25rem;
+    }
+}
+
+/* ==========================================
+   Animations additionnelles
+   ========================================== */
+
+input[type="hidden"] {
+    display: none;
+}
+
+/* Animation de chargement pour les formulaires */
+form.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+form.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid var(--gris-moyen);
+    border-top-color: var(--vert-principal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

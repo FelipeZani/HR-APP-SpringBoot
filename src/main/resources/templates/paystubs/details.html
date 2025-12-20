@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+        <title>Gestion des Départements</title>
+        <link rel="stylesheet" 
+          type="text/css" 
+          th:href="@{/css/styleFP.css}">
+<head>
+    <title>Détails Fiche de Paie</title>
+</head>
+<div layout:fragment="content">
+    <h1 th:text="'Fiche de Paie ID: ' + ${paystub.id}">Détails Fiche de Paie</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h3>Informations Générales</h3>
+            <p><strong>Employé :</strong> <span th:text="${employee.firstName + ' ' + employee.lastName}"></span></p>
+            <p><strong>Période de Paie :</strong> <span th:text="${#dates.format(paystub.payPeriod, 'MMMM yyyy')}"></span></p>
+            <p><strong>Date de Création :</strong> <span th:text="${#dates.format(paystub.creationDate, 'dd/MM/yyyy HH:mm')}"></span></p>
+        </div>
+        <div class="col-md-6 text-end">
+             <a th:href="@{/paystubs/print/{id}(id=${paystub.id})}" class="btn btn-lg btn-secondary">
+                <i class="fas fa-print"></i> Générer PDF
+            </a>
+        </div>
+    </div>
+
+    <div class="card p-4">
+        <h2>Détails du Calcul</h2>
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>Salaire de Base :</td>
+                    <td class="text-end" th:text="${#numbers.formatCurrency(paystub.baseSalary)}"></td>
+                </tr>
+                <tr class="text-success">
+                    <td>Primes (+) :</td>
+                    <td class="text-end" th:text="${#numbers.formatCurrency(paystub.bonuses)}"></td>
+                </tr>
+                <tr class="text-danger">
+                    <td>Déductions (-) :</td>
+                    <td class="text-end" th:text="${'-' + #numbers.formatCurrency(paystub.deductions)}"></td>
+                </tr>
+                <tr class="fw-bold fs-4 table-secondary">
+                    <td>NET À PAYER :</td>
+                    <td class="text-end" th:text="${#numbers.formatCurrency(paystub.netTotal)}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/paystubs}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la Liste
+        </a>
+    </div>
+</div>
+</html>

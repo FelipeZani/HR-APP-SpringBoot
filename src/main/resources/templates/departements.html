@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"> 
+<head>
+    <title>Gestion des Départements</title>
+        <link rel="stylesheet" 
+          type="text/css" 
+          th:href="@{/css/styleD.css}">
+</head>
+<div layout:fragment="content">
+    <h1>Liste des Départements</h1>
+
+    <div th:if="${departements.isEmpty()}" class="alert alert-info">
+        Aucun département n'a été trouvé.
+    </div>
+
+    <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            th:each="name : ${departements}">
+            
+            <span th:text="${name}">Nom du Département</span>
+            
+            <a th:href="@{/departements/{name}(name=${name})}" class="btn btn-sm btn-info">
+                <i class="fas fa-users"></i> Voir les Employés
+            </a>
+        </li>
+    </ul>
+    
+</div>
+</html>

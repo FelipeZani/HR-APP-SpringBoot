@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des employés</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" 
+        type="text/css" 
+        th:href="@{/css/styleE.css}">
+</head>
+<body>
+
+<header>
+    <h2>Gestion des employés</h2>
+    <div>
+        Connecté en tant que <b th:text="${user.username}">user</b>
+    </div>
+</header>
+
+<main>
+
+    <div class="layout">
+
+        <!-- Liste -->
+        <section class="card">
+            <h3>Liste des employés</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Matricule</th>
+                    <th>Département</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="employee-table-body"></tbody>
+            </table>
+        </section>
+
+        <!-- Formulaire ajout / édition -->
+        <section class="card">
+            <h3 id="form-title">Nouvel employé</h3>
+
+            <input type="hidden" id="employee-id">
+
+            <form id="employee-form" onsubmit="submitForm(event)">
+                <div>
+                    <label>Prénom</label>
+                    <input id="firstName" required>
+                </div>
+
+                <div>
+                    <label>Nom</label>
+                    <input id="lastName" required>
+                </div>
+
+                <div>
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div>
+                    <label>Matricule</label>
+                    <input id="matricule" required>
+                </div>
+
+                <div>
+                    <label>Département</label>
+                    <input id="departement" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Annuler</button>
+
+                <div id="status"></div>
+            </form>
+        </section>
+
+    </div>
+</main>
+
+<script>
+    const API_URL = "/api/employees";
+
+    
+    window.addEventListener("DOMContentLoaded", loadEmployees);
+
+    async function loadEmployees() {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        renderEmployees(data);
+    }
+
+    function renderEmployees(list) {
+        const tbody = document.getElementById("employee-table-body");
+        tbody.innerHTML = "";
+
+        if (list.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;font-style:italic;">Aucun employé</td></tr>`;
+            return;
+        }
+
+        list.forEach(e => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${e.id}</td>
+                <td>${e.firstName}</td>
+                <td>${e.lastName}</td>
+                <td>${e.email}</td>
+                <td>${e.matricule}</td>
+                <td>${e.departement}</td>
+                <td>
+                    <button class="btn btn-edit" onclick='editEmployee(${JSON.stringify(e)})'>Modifier</button>
+                    <button class="btn btn-delete" onclick='deleteEmployee(${e.id})'>Supprimer</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function editEmployee(e) {
+        document.getElementById("employee-id").value = e.id;
+        document.getElementById("firstName").value = e.firstName;
+        document.getElementById("lastName").value = e.lastName;
+        document.getElementById("email").value = e.email;
+        document.getElementById("matricule").value = e.matricule;
+        document.getElementById("departement").value = e.departement;
+
+        document.getElementById("form-title").textContent = "Modifier l'employé";
+        clearStatus();
+    }
+
+    function resetForm() {
+        document.getElementById("employee-id").value = "";
+        document.getElementById("employee-form").reset();
+        document.getElementById("form-title").textContent = "Nouvel employé";
+        clearStatus();
+    }
+
+    async function submitForm(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("employee-id").value;
+
+        const payload = {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            email: document.getElementById("email").value,
+            matricule: document.getElementById("matricule").value,
+            departement: document.getElementById("departement").value
+        };
+
+        const url = id ? `${API_URL}/${id}` : API_URL;
+        const method = id ? "PUT" : "POST";
+
+        const res = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+            showStatus("Erreur lors de l'enregistrement", true);
+            return;
+        }
+
+        showStatus(id ? "Employé mis à jour !" : "Employé créé !", false);
+        resetForm();
+        loadEmployees();
+    }
+
+    async function deleteEmployee(id) {
+        if (!confirm("Supprimer cet employé ?")) return;
+
+        const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+        if (!res.ok) return showStatus("Erreur lors de la suppression", true);
+
+        showStatus("Employé supprimé.", false);
+        loadEmployees();
+    }
+
+    function showStatus(msg, error) {
+        const st = document.getElementById("status");
+        st.textContent = msg;
+        st.className = error ? "status--error" : "status--success";
+    }
+    function clearStatus() {
+        const st = document.getElementById("status");
+        st.textContent = "";
+        st.className = "";
+    }
+</script>
+
+</body>
+</html>
